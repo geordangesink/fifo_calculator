@@ -1,0 +1,62 @@
+PSEUDO CODE
+
+
+input of data
+
+
+########Create objects for each coin pair
+
+    sum of profit of each financial tool used
+        ___________________________________________________________________________________________
+
+        profits: isolated_margin
+
+            difference of value bought vs. sold in USDT (sell_value - buy_value)
+
+                simulate FIFO (first in first out) method:
+
+                    Buy (#########check for right coin pair first)
+                        at what price is every single coin bought? at what price are the fractionals bought?
+
+                            create list of "coin amount bought" with each item <= 1 (one coin per item and fractional)
+                                the list is in order of the transaction (eg.: coin amount of first buy transaction = 3.25 ; list is appended by 1,1,1,0.25)
+
+                            create list of coin price bought
+                                list has the same length as "coin amount bought" list and is aligned to the coins baught with corresponding price
+
+                    Sell (########check for right coin pair first)
+                        at what price is every single coin sold? at what price are the fractionals sold?
+
+                            create list of "coin amount sold" with each item <= 1 (one coin per item and fractional)
+                                the list is in order of the transaction (eg.: coin amount of first sell transaction = 5.13 ; list is appended by 1,1,1,1,1,0.13)
+
+                            create list of coin price sold
+                                list has the same length as "coin amount sold" list and is aligned to the coins baught with corresponding price
+
+                    "volume" (coin amount * coin price) of first single coin sold is substracted by "volume" first sigle coin bought and difference added to "profist" 
+                    (repeated until either of the coin amount (sell/buy pair) is samller than the other one)
+
+                        bigger amount is substracted by smaller amount and assigned to "left over".
+                        "volume" is calculated using smaller amount for both prices.
+                        difference of "volume" is then added to "profits"
+                        "left over" is then compared with "next amount" of previously smaller and same thing is repeated until "next amount" is bigger or equal
+                            if "next amount" is bigger or equal, "profits" will be added using amount of "left over", "next amount" is substracted by "left over and "left over is set to 0
+
+                        if there is no "next amount" the rest of all the amounts form the side with "left over" are added to "open amount" ("left over" is also added)
+
+                        SEE "visulization.png" FOR VISUAL REPRESENTATION OF THIS BLOCK
+
+            substract buy and sell fees
+                substraact the sum of csv column "Fee"
+
+            return "profits" and "open amounts"
+
+        ___________________________________________________________________________________________
+
+
+    calculate and return total profit sum for coin pair with all financial tools used
+
+
+calculate anual profit
+
+###Calculate tax/return
